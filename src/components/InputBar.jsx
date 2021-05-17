@@ -7,6 +7,7 @@ export default class InputBar extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateInputValue = this.updateInputValue.bind(this);
+    this.clearField = this.clearField.bind(this);
 
     this.state = {
       inputValue: 'Default',
@@ -27,6 +28,13 @@ export default class InputBar extends React.Component {
     }));
   }
 
+  clearField() {
+    this.setState((prevState) => ({
+      ...prevState,
+      inputValue: '',
+    }));
+  }
+
   updateInputValue(event) {
     event.preventDefault();
 
@@ -37,6 +45,8 @@ export default class InputBar extends React.Component {
   }
 
   sendMessage(data) {
+    this.clearField();
+
     const postOptions = {
       method: 'post',
       url: '/messages',
@@ -45,18 +55,17 @@ export default class InputBar extends React.Component {
       },
     };
 
-    axios(postOptions);
-
     const getOptions = {
       method: 'get',
       url: '/messages',
       transformResponse: [(res) => {
         const json = JSON.parse(res);
-        this.setData(JSON.stringify(json.messages));
+        this.setData(json.messages.map((obj) => obj.message).join(', '));
         return res;
       }],
     };
 
+    axios(postOptions);
     axios(getOptions);
   }
 
