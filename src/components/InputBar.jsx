@@ -37,20 +37,27 @@ export default class InputBar extends React.Component {
   }
 
   sendMessage(data) {
-    const options = {
+    const postOptions = {
       method: 'post',
-      url: '/api',
+      url: '/messages',
       data: {
         message: data,
       },
+    };
+
+    axios(postOptions);
+
+    const getOptions = {
+      method: 'get',
+      url: '/messages',
       transformResponse: [(res) => {
         const json = JSON.parse(res);
-        this.setData(json.message);
+        this.setData(JSON.stringify(json.messages));
         return res;
       }],
     };
 
-    axios(options);
+    axios(getOptions);
   }
 
   render() {
