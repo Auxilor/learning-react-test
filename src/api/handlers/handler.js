@@ -6,7 +6,7 @@ database.then(() => {
   process.stdout.write('Loaded!\n');
 });
 
-const getMessages = async () => Message.find();
+const getMessages = async (filter) => Message.find(filter);
 
 const handleMessage = (message) => {
   let executed = false;
@@ -20,9 +20,10 @@ const handleMessage = (message) => {
   return executed;
 };
 
-const sendMessage = async (message) => {
+const sendMessage = async (message, sender) => {
   await new Message({
     message,
+    sender,
   }).save();
 };
 

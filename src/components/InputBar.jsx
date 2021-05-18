@@ -10,7 +10,7 @@ export default class InputBar extends React.Component {
     this.clearField = this.clearField.bind(this);
 
     this.state = {
-      inputValue: 'Default',
+      inputValue: '',
     };
   }
 
@@ -46,7 +46,7 @@ export default class InputBar extends React.Component {
         Accept: 'application/json',
       },
       method: 'post',
-      url: '/api/messages',
+      url: '/api/v1/messages',
       data: {
         message: data,
       },
