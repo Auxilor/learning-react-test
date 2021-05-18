@@ -1,23 +1,17 @@
 const database = require('../database');
 const Message = require('../Message');
-const handlerLoader = require('./handlers');
+const commandRegistry = require('./commandRegistry');
 
 database.then(() => {
   process.stdout.write('Loaded!\n');
 });
 
-const handlers = [];
-
 const getMessages = async () => Message.find();
-
-const registerHandler = function(handler) {
-  handlers.push(Object.create(handler));
-}
 
 const handleMessage = (message) => {
   let executed = false;
 
-  handlers.forEach((handler) => {
+  commandRegistry.handlers.forEach((handler) => {
     if (handler.name === message) {
       handler.execute();
       executed = true;
@@ -34,9 +28,8 @@ const sendMessage = async (message) => {
 
 module.exports = {
   getMessages,
-  registerHandler,
   handleMessage,
   sendMessage,
 };
 
-handlerLoader.load();
+require('./defaultCommands').load();
