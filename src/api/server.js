@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json())
   .use(express.urlencoded({ extended: true }));
 
-app.get('/messages', async (req, res) => {
+app.get('/api/messages', async (req, res) => {
   handler.getMessages()
     .then((messages) => {
       res.json({
@@ -17,7 +17,7 @@ app.get('/messages', async (req, res) => {
     });
 });
 
-app.post('/messages', async (req, res) => {
+app.post('/api/messages', async (req, res) => {
   if (req.body.message === '') {
     res.status(400);
     res.json({

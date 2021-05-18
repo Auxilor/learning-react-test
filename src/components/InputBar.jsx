@@ -46,7 +46,7 @@ export default class InputBar extends React.Component {
         Accept: 'application/json',
       },
       method: 'post',
-      url: '/messages',
+      url: '/api/messages',
       data: {
         message: data,
       },

@@ -24,7 +24,7 @@ export default class TextArea extends React.Component {
         Accept: 'application/json',
       },
       method: 'get',
-      url: '/messages',
+      url: '/api/messages',
       transformResponse: [(res) => {
         const json = JSON.parse(res);
         this.setData(json.messages.map((obj) => obj.message));
