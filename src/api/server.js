@@ -18,16 +18,21 @@ app.get('/messages', async (req, res) => {
 });
 
 app.post('/messages', async (req, res) => {
+  if (req.body.message === '') {
+    res.status(400);
+    res.json({
+      message: 'Invalid Message',
+    });
+    return;
+  }
+
   if (!handler.handleMessage(req.body.message)) {
     await handler.sendMessage(req.body.message);
   }
 
-  handler.getMessages()
-    .then((messages) => {
-      res.json({
-        messages,
-      });
-    });
+  res.json({
+    message: 'Success',
+  });
 });
 
 app.listen(PORT, () => {

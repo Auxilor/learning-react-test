@@ -32,4 +32,4 @@ module.exports = {
   sendMessage,
 };
 
-require('./defaultCommands').load();
+require('./defaultCommands');

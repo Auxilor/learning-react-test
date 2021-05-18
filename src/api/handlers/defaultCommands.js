@@ -1,10 +1,6 @@
 const handlerRegistry = require('./commandRegistry');
-const yeetEverything = require('./commands/yeetEverything');
 
-const load = () => {
-  handlerRegistry.registerHandler(yeetEverything);
-};
+handlerRegistry.registerHandler(require('./commands/yeetEverything'));
+handlerRegistry.registerHandler(require('./commands/amogus'));
 
-module.exports = {
-  load,
-};
+module.exports = this;
