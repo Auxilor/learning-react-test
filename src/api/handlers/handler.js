@@ -8,12 +8,12 @@ database.then(() => {
 
 const getMessages = async (filter) => Message.find(filter);
 
-const handleMessage = (message) => {
+const handleMessage = (message, sender) => {
   let executed = false;
 
   commandRegistry.handlers.forEach((handler) => {
     if (handler.name === message) {
-      handler.execute();
+      handler.execute(sender);
       executed = true;
     }
   });

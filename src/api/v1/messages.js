@@ -5,11 +5,8 @@ server.get('/api/v1/messages', async (req, res) => {
   handler.getMessages()
     .then((messages) => {
       res.json({
-        messages: JSON.parse(JSON.stringify(messages))
-          .map((obj) => JSON.parse(JSON.stringify({
-            message: obj.message,
-            sender: obj.sender,
-          }))),
+        messages: JSON.reParse(messages)
+          .map(({ _id, __v, ...rest }) => rest),
       });
     })
     .catch((err) => {
@@ -19,7 +16,9 @@ server.get('/api/v1/messages', async (req, res) => {
 });
 
 server.post('/api/v1/messages', async (req, res) => {
+  const sender = req.ip.substring(req.ip.lastIndexOf(':') + 1);
   req.body.message = req.body.message.trim();
+
   if (req.body.message === '') {
     res.status(400);
     res.json({
@@ -28,8 +27,8 @@ server.post('/api/v1/messages', async (req, res) => {
     return;
   }
 
-  if (!handler.handleMessage(req.body.message)) {
-    await handler.sendMessage(req.body.message, req.ip.substring(req.ip.lastIndexOf(':') + 1));
+  if (!handler.handleMessage(req.body.message, sender)) {
+    await handler.sendMessage(req.body.message, sender);
   }
 
   res.json({

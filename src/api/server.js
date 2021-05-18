@@ -13,4 +13,6 @@ app.listen(PORT, () => {
 
 module.exports = app;
 
+JSON.reParse = (obj) => JSON.parse(JSON.stringify(obj));
+
 require('./v1/index');
