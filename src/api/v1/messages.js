@@ -16,7 +16,14 @@ server.get('/api/v1/messages', async (req, res) => {
 });
 
 server.post('/api/v1/messages', async (req, res) => {
-  const sender = req.ip.substring(req.ip.lastIndexOf(':') + 1);
+  const ip = req.ip.substring(req.ip.lastIndexOf(':') + 1);
+  const user = await handler.getUsers({ ip });
+  let { id } = user[0] || 0;
+
+  if (id === '' || id === undefined) {
+    id = await handler.addUser('TestUser', ip);
+  }
+
   req.body.message = req.body.message.trim();
 
   if (req.body.message === '') {
@@ -27,8 +34,8 @@ server.post('/api/v1/messages', async (req, res) => {
     return;
   }
 
-  if (!handler.handleMessage(req.body.message, sender)) {
-    await handler.sendMessage(req.body.message, sender);
+  if (!handler.handleMessage(req.body.message, id)) {
+    await handler.sendMessage(req.body.message, id);
   }
 
   res.json({
