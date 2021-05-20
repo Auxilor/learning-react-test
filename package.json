@@ -26,7 +26,6 @@
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0"
   },
-
   "scripts": {
     "dev": "concurrently \"react-scripts start\" \"nodemon src/api/server.js\"",
     "heroku-postbuild": "react-scripts build",
