@@ -29,7 +29,6 @@
   },
   "scripts": {
     "dev": "concurrently \"react-scripts start\" \"nodemon src/api/server.js\"",
-    "heroku-postbuild": "react-scripts build",
     "start": "node src/api/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
