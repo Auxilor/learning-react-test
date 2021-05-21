@@ -1,6 +1,6 @@
-const database = require('../database');
-const Message = require('../Message');
-const User = require('../User');
+const database = require('../mongo/database');
+const Message = require('../mongo/schema/MessageSchema');
+const User = require('../mongo/schema/UserSchema');
 const commandRegistry = require('./commandRegistry');
 
 database.then(() => {

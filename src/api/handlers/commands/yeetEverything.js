@@ -1,4 +1,4 @@
-const Message = require('../../Message');
+const Message = require('../../mongo/schema/MessageSchema');
 
 module.exports = {
   name: 'yeet everything',
